@@ -1,26 +1,37 @@
-import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import Header from './components/Header';
+import { Routes, Route } from 'react-router-dom';
+import Home from './components/Home';
+import { Container } from '@mui/material';
+
+const categories = [
+    {
+        title: 'Home',
+        slug: '',
+    },
+    {
+        title: 'About',
+        slug: 'about',
+    },
+    {
+        title: 'Reviews',
+        slug: 'reviews',
+    },
+    {
+        title: 'Contact',
+        slug: 'contact',
+    },
+];
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    return (
+        <Container maxWidth='lg'>
+            <Header title="Toronto Reviews" categories={categories} />
+            <Routes>
+                <Route path="/" element={<Home />} />
+            </Routes>
+        </Container>
+    );
 }
 
 export default App;
