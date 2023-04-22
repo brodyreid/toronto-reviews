@@ -3,6 +3,9 @@ import Header from './components/Header';
 import { Routes, Route } from 'react-router-dom';
 import Home from './components/Home';
 import { Container } from '@mui/material';
+import About from './components/About';
+import Reviews from './components/Reviews';
+import Contact from './components/Contact';
 
 const categories = [
     {
@@ -29,6 +32,10 @@ function App() {
             <Header title="Toronto Reviews" categories={categories} />
             <Routes>
                 <Route path="/" element={<Home />} />
+                <Route path="about" element={<About />} />
+                <Route path="*" element={<h1>404 Not Found</h1>} />
+                <Route path="reviews" element={<Reviews />} />
+                <Route path="Contact" element={<Contact />} />
             </Routes>
         </Container>
     );
