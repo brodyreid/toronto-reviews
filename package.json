@@ -5,6 +5,7 @@
     "dependencies": {
         "@emotion/react": "^11.10.6",
         "@emotion/styled": "^11.10.6",
+        "@mui/icons-material": "^5.11.16",
         "@mui/material": "^5.12.1",
         "@testing-library/jest-dom": "^5.16.5",
         "@testing-library/react": "^13.4.0",
@@ -14,6 +15,7 @@
         "@types/react": "^18.0.29",
         "@types/react-dom": "^18.0.11",
         "@types/react-router-dom": "^5.3.3",
+        "formik": "^2.2.9",
         "mui": "^0.0.1",
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
@@ -50,21 +52,5 @@
     },
     "devDependencies": {
         "@types/styled-components": "^5.1.26"
-    },
-    "prettier": {
-        "arrowParens": "always",
-        "bracketSpacing": true,
-        "htmlWhitespaceSensitivity": "css",
-        "insertPragma": false,
-        "jsxBracketSameLine": false,
-        "jsxSingleQuote": false,
-        "proseWrap": "preserve",
-        "requirePragma": false,
-        "semi": true,
-        "singleQuote": true,
-        "trailingComma": "all",
-        "useTabs": false,
-        "tabWidth": 4,
-        "printWidth": 140
     }
 }
