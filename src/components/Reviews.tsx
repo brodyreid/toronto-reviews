@@ -1,4 +1,4 @@
-import { MenuItem, TextField, Typography } from '@mui/material';
+import { Button, MenuItem, TextField, Typography } from '@mui/material';
 import { Form, Formik } from 'formik';
 
 interface IForm {
@@ -41,10 +41,10 @@ const Reviews = () => {
 			<Typography variant='h3'>Hello this is the Reviews page</Typography>
 			<Formik
 				initialValues={{
-					author: '',
-					restaurant: '',
-					rating: '',
-					review: '',
+					author: 'fff',
+					restaurant: 'faaaa',
+					rating: '4',
+					review: 'aaa',
 				}}
 				onSubmit={(values) => onSubmit(values)}>
 				{({ values, handleChange, handleBlur }) => (
@@ -86,6 +86,7 @@ const Reviews = () => {
 							onChange={handleChange}
 							onBlur={handleBlur}
 						/>
+						<Button type='submit'>Submit</Button>
 						<pre>{JSON.stringify(values, null, 2)}</pre>
 					</Form>
 				)}
