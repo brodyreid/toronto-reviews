@@ -1,12 +1,27 @@
 import { Button, MenuItem, TextField, Typography } from '@mui/material';
 import { Form, Formik } from 'formik';
+import { supabase } from '../App';
 
 interface IForm {
 	author: string;
 	restaurant: string;
 	rating: string;
-	review: string;
+	body: string;
 }
+
+async function addReview(values: IForm) {
+	const { error } = await supabase
+		.from('reviews')
+		.insert(
+			{
+				author: values.author,
+				restaurant: values.restaurant,
+				rating: values.rating,
+				body: values.body,
+			},
+	);
+	error ? console.log(error) : console.log('success');
+};
 
 const Reviews = () => {
 	const ratings = [
@@ -33,6 +48,7 @@ const Reviews = () => {
 	];
 
 	const onSubmit = (values: IForm) => {
+		addReview(values);
 		console.log(values);
 	};
 
@@ -44,7 +60,7 @@ const Reviews = () => {
 					author: 'fff',
 					restaurant: 'faaaa',
 					rating: '4',
-					review: 'aaa',
+					body: 'aaa',
 				}}
 				onSubmit={(values) => onSubmit(values)}>
 				{({ values, handleChange, handleBlur }) => (
@@ -80,9 +96,9 @@ const Reviews = () => {
 							))}
 						</TextField>
 						<TextField
-							name='review'
+							name='body'
 							label='Review'
-							value={values.review}
+							value={values.body}
 							onChange={handleChange}
 							onBlur={handleBlur}
 						/>
