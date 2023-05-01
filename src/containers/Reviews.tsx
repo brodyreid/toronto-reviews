@@ -1,29 +1,21 @@
 import { Button, MenuItem, TextField, Typography } from '@mui/material';
 import { Form, Formik } from 'formik';
 import { supabase } from '../App';
+import { Review } from '../../types/types';
+import useGetReviews from '../hooks/useGetReviews';
+import { createId } from '@paralleldrive/cuid2';
 
-interface IForm {
-	author: string;
-	restaurant: string;
-	rating: string;
-	body: string;
-}
-
-async function addReview(values: IForm) {
-	const { error } = await supabase
-		.from('reviews')
-		.insert(
-			{
-				author: values.author,
-				restaurant: values.restaurant,
-				rating: values.rating,
-				body: values.body,
-			},
-	);
-	error ? console.log(error) : console.log('success');
+const addReview = async (values: Review) => {
+	return await supabase.from('reviews').insert({
+		author: values.author,
+		restaurant: values.restaurant,
+		rating: values.rating,
+		body: values.body,
+	});
 };
 
 const Reviews = () => {
+	const { data: reviews, isLoading, isSuccess } = useGetReviews();
 	const ratings = [
 		{
 			value: '1',
@@ -47,8 +39,8 @@ const Reviews = () => {
 		},
 	];
 
-	const onSubmit = (values: IForm) => {
-		addReview(values);
+	const onSubmit = (values: any) => {
+		addReview({...values, id: createId(), created_at: new Date()});
 		console.log(values);
 	};
 
@@ -103,10 +95,21 @@ const Reviews = () => {
 							onBlur={handleBlur}
 						/>
 						<Button type='submit'>Submit</Button>
-						<pre>{JSON.stringify(values, null, 2)}</pre>
+						<pre>{JSON.stringify(values, null, 2)}</pre>					
 					</Form>
 				)}
 			</Formik>
+			{isLoading ? <div>Loading...</div> :
+				<>
+				
+					{isSuccess && reviews?.map((review) => (
+						<div key={review.id}>
+							<h3>{review.author}</h3>
+							<p>{review.body}</p>
+						</div>
+					))}
+				</>
+			}
 		</>
 	);
 };

@@ -2,6 +2,7 @@
 	"name": "toronto-reviews",
 	"version": "0.1.0",
 	"private": true,
+	"type": "module",
 	"dependencies": {
 		"@aws-sdk/client-dynamodb": "^3.319.0",
 		"@aws-sdk/client-rds": "^3.319.0",
@@ -11,6 +12,7 @@
 		"@hexlabs/dynamo-ts": "^3.0.142",
 		"@mui/icons-material": "^5.11.16",
 		"@mui/material": "^5.12.1",
+		"@paralleldrive/cuid2": "^2.2.0",
 		"@supabase/supabase-js": "^2.21.0",
 		"@testing-library/jest-dom": "^5.16.5",
 		"@testing-library/react": "^13.4.0",
@@ -21,10 +23,13 @@
 		"@types/react-dom": "^18.0.11",
 		"@types/react-router-dom": "^5.3.3",
 		"aws-sdk": "^2.1364.0",
+		"cuid": "^3.0.0",
 		"formik": "^2.2.9",
 		"mui": "^0.0.1",
+		"openapi-typescript": "^6.2.4",
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0",
+		"react-query": "^3.39.3",
 		"react-router-dom": "^6.10.0",
 		"react-scripts": "5.0.1",
 		"styled-components": "^5.3.9",
@@ -32,12 +37,12 @@
 		"web-vitals": "^2.1.4"
 	},
 	"scripts": {
-		"start": "react-scripts start",
+		"start": "react-scripts start && npx supabase start",
 		"build": "react-scripts build",
 		"test": "react-scripts test",
 		"eject": "react-scripts eject",
 		"deploy": "aws s3 sync build/ s3://torontoreviews.ca",
-		"types": "supabase gen types typescript --local > lib/database.types.ts"
+		"types": "supabase gen types typescript --project-id ahihbpdewjvyhhbglaym > types/database.types.ts"
 	},
 	"eslintConfig": {
 		"extends": [
@@ -59,6 +64,8 @@
 	},
 	"devDependencies": {
 		"@types/styled-components": "^5.1.26",
-		"supabase": "^1.52.2"
+		"supabase": "^1.52.2",
+		"webpack": "^5.81.0",
+		"webpack-cli": "^5.0.2"
 	}
 }
