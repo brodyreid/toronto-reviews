@@ -17,6 +17,10 @@ const SUPABASE_ANON_KEY =
 	'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFoaWhicGRld2p2eWhoYmdsYXltIiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODI3MTYzNjksImV4cCI6MTk5ODI5MjM2OX0.qQwIBX7JM_MKKlKMTYNGM1UaG2UqxufYYEbKtXcN8L0';
 export const supabase = createClient<Database>(SUPABASE_URL, SUPABASE_ANON_KEY);
 
+supabase.auth.onAuthStateChange((event, session) => {
+	console.log(event, session);
+});
+
 const queryClient = new QueryClient({
 	defaultOptions: {
 		queries: {
@@ -44,11 +48,11 @@ const categories = [
 	},
 ];
 
-function App() {
+export default function App() {
 	return (
 		<Fragment>
-				<QueryClientProvider client={queryClient}>
-			<Container maxWidth='lg'>
+			<QueryClientProvider client={queryClient}>
+				<Container maxWidth='lg'>
 					<Header title='Toronto Reviews' categories={categories} />
 					<Routes>
 						<Route path='/' element={<Home />} />
@@ -58,10 +62,8 @@ function App() {
 						<Route path='*' element={<h1>404 Not Found</h1>} />
 					</Routes>
 					<Footer />
-			</Container>
-				</QueryClientProvider>
+				</Container>
+			</QueryClientProvider>
 		</Fragment>
 	);
 }
-
-export default App;

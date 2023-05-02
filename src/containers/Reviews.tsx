@@ -1,58 +1,63 @@
 import { Button, MenuItem, TextField, Typography } from '@mui/material';
 import { Form, Formik } from 'formik';
 import { supabase } from '../App';
-import { Review } from '../../types/types';
 import useGetReviews from '../hooks/useGetReviews';
-import { createId } from '@paralleldrive/cuid2';
+import { ReviewInsert } from '../../types/types';
 
-const addReview = async (values: Review) => {
-	return await supabase.from('reviews').insert({
-		author: values.author,
-		restaurant: values.restaurant,
-		rating: values.rating,
-		body: values.body,
-	});
+const addReview = async (review: ReviewInsert) => {
+	const { error } = await supabase.from('reviews').insert(review);
+	if (error) {
+		throw new Error(error.message);
+	}
 };
 
-const Reviews = () => {
-	const { data: reviews, isLoading, isSuccess } = useGetReviews();
+export default function Reviews() {
+	const { data: reviews, isLoading, isSuccess, refetch } = useGetReviews();
 	const ratings = [
 		{
-			value: '1',
+			value: 1,
 			label: '1',
 		},
 		{
-			value: '2',
+			value: 2,
 			label: '2',
 		},
 		{
-			value: '3',
+			value: 3,
 			label: '3',
 		},
 		{
-			value: '4',
+			value: 4,
 			label: '4',
 		},
 		{
-			value: '5',
+			value: 5,
 			label: '5',
 		},
 	];
 
-	const onSubmit = (values: any) => {
-		addReview({...values, id: createId(), created_at: new Date()});
+	const onSubmit = (values: ReviewInsert) => {
+		addReview(values);
+		refetch();
 		console.log(values);
+	};
+
+	const checkSession = async () => {
+		const { data: { session, user}, error } = await supabase.auth.refreshSession();
+		console.log('Session: ', session, '\nUser: ', user, '\nError: ', error);
+
 	};
 
 	return (
 		<>
+			<Button onClick={checkSession}>Check Session</Button>
 			<Typography variant='h3'>Hello this is the Reviews page</Typography>
 			<Formik
 				initialValues={{
-					author: 'fff',
-					restaurant: 'faaaa',
-					rating: '4',
-					body: 'aaa',
+					author: '',
+					restaurant: '',
+					rating: 1,
+					body: '',
 				}}
 				onSubmit={(values) => onSubmit(values)}>
 				{({ values, handleChange, handleBlur }) => (
@@ -95,7 +100,6 @@ const Reviews = () => {
 							onBlur={handleBlur}
 						/>
 						<Button type='submit'>Submit</Button>
-						<pre>{JSON.stringify(values, null, 2)}</pre>					
 					</Form>
 				)}
 			</Formik>
@@ -113,5 +117,3 @@ const Reviews = () => {
 		</>
 	);
 };
-
-export default Reviews;
