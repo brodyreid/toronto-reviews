@@ -5,7 +5,6 @@ import Home from './containers/Home';
 import About from './containers/About';
 import Reviews from './containers/Reviews';
 import Contact from './containers/Contact';
-import Footer from './containers/Footer';
 import { Container } from '@mui/material';
 import { createClient } from '@supabase/supabase-js';
 import { Database } from '../types/database.types';
@@ -61,7 +60,7 @@ export default function App() {
 						<Route path='contact' element={<Contact />} />
 						<Route path='*' element={<h1>404 Not Found</h1>} />
 					</Routes>
-					<Footer />
+					{/* <Footer /> */}
 				</Container>
 			</QueryClientProvider>
 		</Fragment>

@@ -3,6 +3,7 @@ import { Form, Formik } from 'formik';
 import { supabase } from '../App';
 import useGetReviews from '../hooks/useGetReviews';
 import { ReviewInsert } from '../../types/types';
+import ReviewCard from '../components/ReviewCard';
 
 const addReview = async (review: ReviewInsert) => {
 	const { error } = await supabase.from('reviews').insert(review);
@@ -106,12 +107,7 @@ export default function Reviews() {
 			{isLoading ? <div>Loading...</div> :
 				<>
 				
-					{isSuccess && reviews?.map((review) => (
-						<div key={review.id}>
-							<h3>{review.author}</h3>
-							<p>{review.body}</p>
-						</div>
-					))}
+					{isSuccess && Boolean(reviews.length) && reviews.map((review) => <ReviewCard key={review.id} {...review} />)}
 				</>
 			}
 		</>
