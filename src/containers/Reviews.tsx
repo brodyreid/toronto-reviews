@@ -4,6 +4,8 @@ import { supabase } from '../App';
 import useGetReviews from '../hooks/useGetReviews';
 import { ReviewInsert } from '../../types/types';
 import ReviewCard from '../components/ReviewCard';
+import useIsAdmin from '../hooks/useIsAdmin';
+
 
 const addReview = async (review: ReviewInsert) => {
 	const { error } = await supabase.from('reviews').insert(review);
@@ -13,6 +15,9 @@ const addReview = async (review: ReviewInsert) => {
 };
 
 export default function Reviews() {
+	const { data: isAdmin } = useIsAdmin();
+
+
 	const { data: reviews, isLoading, isSuccess, refetch } = useGetReviews();
 	const ratings = [
 		{
@@ -44,16 +49,15 @@ export default function Reviews() {
 	};
 
 	const checkSession = async () => {
-		const { data: { session, user}, error } = await supabase.auth.refreshSession();
+		const { data: { session, user }, error } = await supabase.auth.refreshSession();
 		console.log('Session: ', session, '\nUser: ', user, '\nError: ', error);
-
 	};
 
 	return (
 		<>
 			<Button onClick={checkSession}>Check Session</Button>
 			<Typography variant='h3'>Hello this is the Reviews page</Typography>
-			<Formik
+			{isAdmin && <Formik
 				initialValues={{
 					author: '',
 					restaurant: '',
@@ -103,7 +107,7 @@ export default function Reviews() {
 						<Button type='submit'>Submit</Button>
 					</Form>
 				)}
-			</Formik>
+			</Formik>}
 			{isLoading ? <div>Loading...</div> :
 				<>
 				

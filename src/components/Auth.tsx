@@ -8,7 +8,7 @@ interface FormValues {
 	password: string;
 }
 
-export default function Login() {
+export function Login() {
 	const [loading, setLoading] = useState(false);
 
 	const onSubmit = async ({ email, password }: FormValues) => {

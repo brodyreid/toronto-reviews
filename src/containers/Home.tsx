@@ -1,5 +1,5 @@
 import { Container, Typography } from '@mui/material';
-import Login from '../components/Auth';
+import {Login} from '../components/Auth';
 
 export default function Home() {
 	return (

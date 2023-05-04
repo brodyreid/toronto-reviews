@@ -35,15 +35,34 @@ export interface Database {
           restaurant?: string
         }
       }
+      user_roles: {
+        Row: {
+          role: Database["public"]["Enums"]["user_role"]
+          user_id: string
+        }
+        Insert: {
+          role: Database["public"]["Enums"]["user_role"]
+          user_id: string
+        }
+        Update: {
+          role?: Database["public"]["Enums"]["user_role"]
+          user_id?: string
+        }
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      has_role: {
+        Args: {
+          name: Database["public"]["Enums"]["user_role"]
+        }
+        Returns: boolean
+      }
     }
     Enums: {
-      [_ in never]: never
+      user_role: "admin"
     }
     CompositeTypes: {
       [_ in never]: never
