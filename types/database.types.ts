@@ -9,9 +9,32 @@ export type Json =
 export interface Database {
   public: {
     Tables: {
+      profiles: {
+        Row: {
+          avatar_url: string
+          full_name: string
+          updated_at: string | null
+          user_id: string
+          username: string
+        }
+        Insert: {
+          avatar_url?: string
+          full_name?: string
+          updated_at?: string | null
+          user_id: string
+          username?: string
+        }
+        Update: {
+          avatar_url?: string
+          full_name?: string
+          updated_at?: string | null
+          user_id?: string
+          username?: string
+        }
+      }
       reviews: {
         Row: {
-          author: string
+          author_id: string | null
           body: string
           created_at: string
           id: number
@@ -19,15 +42,15 @@ export interface Database {
           restaurant: string
         }
         Insert: {
-          author: string
-          body: string
+          author_id?: string | null
+          body?: string
           created_at?: string
           id?: number
           rating: number
-          restaurant: string
+          restaurant?: string
         }
         Update: {
-          author?: string
+          author_id?: string | null
           body?: string
           created_at?: string
           id?: number

@@ -9,18 +9,14 @@ import { Container } from '@mui/material';
 import { Session, createClient } from '@supabase/supabase-js';
 import { Database } from '../types/database.types';
 import { QueryClient, QueryClientProvider } from 'react-query';
-import { Fragment, createContext, useEffect, useState } from 'react';
+import { Fragment, useState } from 'react';
+import { SessionContextProvider } from '@supabase/auth-helpers-react';
 
 const SUPABASE_URL = 'https://ahihbpdewjvyhhbglaym.supabase.co';
 const SUPABASE_ANON_KEY =
 	'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFoaWhicGRld2p2eWhoYmdsYXltIiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODI3MTYzNjksImV4cCI6MTk5ODI5MjM2OX0.qQwIBX7JM_MKKlKMTYNGM1UaG2UqxufYYEbKtXcN8L0';
 export const supabase = createClient<Database>(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-export const SessionContext = createContext<Session | null>(null);
-
-supabase.auth.onAuthStateChange((event, session) => {
-	console.log(event, session);
-});
 
 const queryClient = new QueryClient({
 	defaultOptions: {
@@ -51,16 +47,14 @@ const categories = [
 
 export default function App() {
 	const [session, setSession] = useState<Session | null>(null);
-
-	useEffect(() => {
-		supabase.auth.getSession().then(({ data: { session } }) => {
-			setSession(session);
-		});
-	}, []);
-
+	supabase.auth.onAuthStateChange((event, session) => {
+		setSession(session);
+		console.log(event, session);
+	});
+	
 	return (
 		<Fragment>
-			<SessionContext.Provider value={session}>
+			<SessionContextProvider supabaseClient={supabase} initialSession={session}>
 				<QueryClientProvider client={queryClient}>
 					<Container maxWidth='lg'>
 						<Header
@@ -68,7 +62,7 @@ export default function App() {
 							categories={categories}
 						/>
 						{/* {!!!session && (
-							<Auth supabaseClient={supabase} providers={[]} /> // bin this and make sign-in
+							<Auth supabaseClient={supabase} providers={[]} /> // bin this and make custom sign-in
 						)} */}
 						<Routes>
 							<Route path='/' element={<Home />} />
@@ -80,7 +74,7 @@ export default function App() {
 						{/* <Footer /> */}
 					</Container>
 				</QueryClientProvider>
-			</SessionContext.Provider>
+			</SessionContextProvider>
 		</Fragment>
 	);
 }
