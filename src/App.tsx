@@ -49,7 +49,6 @@ export default function App() {
 	const [session, setSession] = useState<Session | null>(null);
 	supabase.auth.onAuthStateChange((event, session) => {
 		setSession(session);
-		console.log(event, session);
 	});
 	
 	return (

@@ -1,16 +1,15 @@
 import { Toolbar, Typography } from '@mui/material';
 import { Fragment } from 'react';
-import { NavLink } from 'react-router-dom';
+import NavBar from '../components/NavBar';
+import { Category } from '../../types/types';
 
 interface HeaderProps {
     title: string;
-    categories: {
-        title: string;
-        slug: string;
-    }[];
+    categories: Category[];
 }
 
 const Header = ({ title, categories }: HeaderProps) => {
+    console.log('Header: ', categories)
     return (
         <Fragment>
             <Toolbar sx={{ borderBottom: 2, borderColor: 'divider' }}>
@@ -18,13 +17,7 @@ const Header = ({ title, categories }: HeaderProps) => {
                     {title}
                 </Typography>
             </Toolbar>
-            <Toolbar component="nav" variant="dense" sx={{ justifyContent: 'space-between', overflowX: 'auto' }}>
-                {categories.map((category) => (
-                    <NavLink to={'/' + category.slug} color="inherit" key={category.title}>
-                        {category.title}
-                    </NavLink>
-                ))}
-            </Toolbar>
+            <NavBar categories={categories} />
         </Fragment>
     );
 };

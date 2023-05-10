@@ -45,7 +45,7 @@
 		"eject": "react-scripts eject",
 		"deploy": "aws s3 sync build/ s3://torontoreviews.ca",
 		"types": "supabase gen types typescript --project-id ahihbpdewjvyhhbglaym > types/database.types.ts",
-		"migrate": "supabase db diff -f --message process.env.message --linked"
+		"migrate": "supabase db diff -f $npm_config_message --linked"
 	},
 	"eslintConfig": {
 		"extends": [

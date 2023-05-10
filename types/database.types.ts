@@ -9,7 +9,7 @@ export type Json =
 export interface Database {
   public: {
     Tables: {
-      profiles: {
+      profile: {
         Row: {
           avatar_url: string
           full_name: string
