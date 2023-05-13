@@ -4,7 +4,6 @@ import { Category } from "../../types/types";
 
 
 export default function NavBar({categories}: {categories: Category[]}) {
-    console.log(categories)
     return (
 		<Toolbar
 			component='nav'

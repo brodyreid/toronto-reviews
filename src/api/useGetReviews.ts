@@ -1,10 +1,6 @@
 import { useQuery } from 'react-query';
 import { supabase } from '../App';
-import { Database } from '../../types/database.types';
-
-type Review = Database['public']['Tables']['reviews']['Row'];
-type Profile = Database['public']['Tables']['profile']['Row'];
-export type ReviewWithProfile = Review & { profile: Profile };
+import { ReviewWithProfile } from '../../types/types';
 
 export const getReviews = async () => {
 	const { data, error } = await supabase
@@ -17,7 +13,7 @@ export const getReviews = async () => {
 	}
 
 	return data.map((review) => {
-		if (!review.profile?.user_id) {
+		if (!Boolean(review?.profile)) {
 			return {
 				...review,
 				profile: {

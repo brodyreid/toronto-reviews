@@ -9,7 +9,6 @@ interface HeaderProps {
 }
 
 const Header = ({ title, categories }: HeaderProps) => {
-    console.log('Header: ', categories)
     return (
         <Fragment>
             <Toolbar sx={{ borderBottom: 2, borderColor: 'divider' }}>

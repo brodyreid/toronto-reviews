@@ -12,22 +12,25 @@ export interface Database {
       profile: {
         Row: {
           avatar_url: string
+          bio: string | null
+          created_at: string
           full_name: string
-          updated_at: string | null
           user_id: string
           username: string
         }
         Insert: {
           avatar_url?: string
+          bio?: string | null
+          created_at?: string
           full_name?: string
-          updated_at?: string | null
           user_id: string
           username?: string
         }
         Update: {
           avatar_url?: string
+          bio?: string | null
+          created_at?: string
           full_name?: string
-          updated_at?: string | null
           user_id?: string
           username?: string
         }

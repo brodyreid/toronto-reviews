@@ -1,31 +1,50 @@
-import { Box, Container, Typography } from '@mui/material';
-import Card from '@mui/material/Card';
-
-interface AboutCardProps {
-	name: string;
-	bio: string;
-	dateJoined: string;
-	numberOfReviews?: number;
-}
+import {
+	Card,
+	CardContent,
+	Avatar,
+	Box,
+	Container,
+	Typography,
+} from '@mui/material';
+import { Profile } from '../../types/types';
 
 const AboutCard = ({
+	avatar_url,
+	username,
+	reviewsCount,
+	created_at,
 	bio,
-	dateJoined,
-	name,
-	numberOfReviews,
-}: AboutCardProps) => {
+}: Profile) => {
 	return (
 		<Card raised sx={{ marginTop: '20px', padding: '20px' }}>
-			<Box sx={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
-				<Typography variant='h4'>{name}</Typography>
-				{numberOfReviews && (
-					<div>Number of Reviews: {numberOfReviews}</div>
-				)}
-			</Box>
-			<Typography>Joined {dateJoined}</Typography>
-			<Container sx={{ margin: '10px' }}>
-				<Typography>{bio}</Typography>
-			</Container>
+			<CardContent>
+				<Box
+					sx={{
+						display: 'flex',
+						alignItems: 'center',
+						gap: '20px',
+					}}>
+					<Typography variant='h4'>{username}</Typography>
+					<Avatar
+						style={{ objectFit: 'cover', height: 50, width: 50 }}
+						src={avatar_url}
+					/>
+				</Box>
+				<Box
+					sx={{
+						display: 'flex',
+						alignItems: 'center',
+						gap: '10px',
+					}}>
+					<Typography>
+						Joined on {new Date(created_at).toDateString()}
+					</Typography>
+					{<Typography>Reviews: {reviewsCount}</Typography>}
+				</Box>
+				<Container sx={{ margin: '10px' }}>
+					{Boolean(bio) && <Typography>{bio}</Typography>}
+				</Container>
+			</CardContent>
 		</Card>
 	);
 };

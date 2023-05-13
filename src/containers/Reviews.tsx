@@ -1,6 +1,6 @@
 import { Button, MenuItem, TextField, Typography } from '@mui/material';
 import { Form, Formik } from 'formik';
-import useGetReviews from '../api/getReviews';
+import useGetReviews from '../api/useGetReviews';
 import ReviewCard from '../components/ReviewCard';
 import useIsAdmin from '../utils/useIsUserAdmin';
 import createReview from '../api/createReview';
@@ -90,10 +90,10 @@ export default function Reviews() {
 							<Button type='submit'>Submit</Button>
 						</Form>
 					)}
-				</Formik>
+			</Formik>
 			)}
 			{isLoading ? (
-				<div>Loading...</div>
+				<Typography>Loading...</Typography>
 			) : (
 				<>
 					{isSuccess &&

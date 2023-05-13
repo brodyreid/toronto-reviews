@@ -1,12 +1,14 @@
-import { getReviews } from '../src/api/getReviews';
-import { getUserProfile } from '../src/api/useGetUserProfile';
 import { Database } from './database.types';
 
-export type Review = Awaited<ReturnType<typeof getReviews>>[0];
 export type ReviewInsert = Database['public']['Tables']['reviews']['Insert'];
-export type UserProfile = Omit<Awaited<ReturnType<typeof getUserProfile>>, 'updated_at'>;
+export type Review = Database['public']['Tables']['reviews']['Row'];
+export type Profile = Omit<
+	Database['public']['Tables']['profile']['Row'],
+	'user_id' | 'full_name'
+	> & { reviews?: { count: number }[]; reviewsCount?: number; hashedId?: number };
+export type ReviewWithProfile = Review & { profile: Profile };
 
 export interface Category {
-    title: string;
-    slug: string;
-};
+	title: string;
+	slug: string;
+}
