@@ -12,3 +12,8 @@ export interface Category {
 	title: string;
 	slug: string;
 }
+
+export interface LoginProps {
+	email: string;
+	password: string;
+}

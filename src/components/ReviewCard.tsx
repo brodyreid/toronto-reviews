@@ -27,6 +27,7 @@ export default function ReviewCard(props: ReviewWithProfile) {
 					}}>
 					<Typography>{profile.username}</Typography>
 					<Avatar
+						
 						style={{ objectFit: 'cover', height: 50, width: 50 }}
 						src={profile.avatar_url}
 					/>

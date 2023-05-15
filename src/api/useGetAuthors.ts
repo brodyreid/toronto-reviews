@@ -3,10 +3,10 @@ import { supabase } from '../App';
 import { Profile } from '../../types/types';
 import { hasher } from '../utils/HashUtils';
 
-export const getUserProfile = async () => {
+export const getAuthors = async () => {
 	const { data, error } = await supabase
 		.from('profile')
-		.select('username, created_at, avatar_url, bio, user_id, reviews(count)')
+		.select('username, created_at, avatar_url, bio, reviews(count)')
 		.returns<Profile[]>();
 
 	if (error) {
@@ -23,6 +23,6 @@ export const getUserProfile = async () => {
 	}));
 };
 
-export default function useGetUserProfile() {
-	return useQuery('getUserProfile', () => getUserProfile());
+export default function useGetAuthors() {
+	return useQuery('getAuthors', () => getAuthors());
 }

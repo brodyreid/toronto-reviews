@@ -1,36 +1,16 @@
-import { useState } from 'react';
-import { supabase } from '../App';
 import { Button, Container, TextField } from '@mui/material';
 import { Form, Formik } from 'formik';
+import { LoginProps } from '../../types/types';
 
-interface FormValues {
-	email: string;
-	password: string;
-}
 
-export function Login() {
-	const [loading, setLoading] = useState(false);
 
-	const onSubmit = async ({ email, password }: FormValues) => {
-		setLoading(true);
-		const { error } = await supabase.auth.signInWithPassword({
-			email,
-			password,
-		});
-
-		if (error) {
-			alert(error.message);
-		} else {
-			alert('Wahoooo! Welcome!');
-		}
-		setLoading(false);
-	};
+export function LoginForm({ onSubmit, loading }: { onSubmit: (values: LoginProps) => void, loading: boolean }) {
 
 	return (
 		<Container>
 			<Formik
 				validate={(values) => {
-					const errors: Partial<FormValues> = {};
+					const errors: Partial<LoginProps> = {};
 					if (!values.email) {
 						errors.email = 'Required';
 					} else if (

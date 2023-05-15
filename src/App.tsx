@@ -11,12 +11,14 @@ import { Database } from '../types/database.types';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { Fragment, useState } from 'react';
 import { SessionContextProvider } from '@supabase/auth-helpers-react';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import Login from './containers/Login';
 
 const SUPABASE_URL = 'https://ahihbpdewjvyhhbglaym.supabase.co';
 const SUPABASE_ANON_KEY =
 	'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFoaWhicGRld2p2eWhoYmdsYXltIiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODI3MTYzNjksImV4cCI6MTk5ODI5MjM2OX0.qQwIBX7JM_MKKlKMTYNGM1UaG2UqxufYYEbKtXcN8L0';
 export const supabase = createClient<Database>(SUPABASE_URL, SUPABASE_ANON_KEY);
-
 
 const queryClient = new QueryClient({
 	defaultOptions: {
@@ -53,7 +55,9 @@ export default function App() {
 	
 	return (
 		<Fragment>
-			<SessionContextProvider supabaseClient={supabase} initialSession={session}>
+			<SessionContextProvider
+				supabaseClient={supabase}
+				initialSession={session}>
 				<QueryClientProvider client={queryClient}>
 					<Container maxWidth='lg'>
 						<Header
@@ -66,11 +70,23 @@ export default function App() {
 						<Routes>
 							<Route path='/' element={<Home />} />
 							<Route path='about' element={<About />} />
-							<Route path='reviews' element={<Reviews />}  />
+							<Route path='reviews' element={<Reviews />} />
 							<Route path='contact' element={<Contact />} />
+							<Route path='login' element={<Login />} />
 							<Route path='*' element={<h1>404 Not Found</h1>} />
 						</Routes>
-						{/* <Footer /> */}
+						<ToastContainer
+							position='top-right'
+							autoClose={5000}
+							hideProgressBar={false}
+							newestOnTop={false}
+							closeOnClick
+							rtl={false}
+							pauseOnFocusLoss
+							draggable
+							pauseOnHover
+							theme='colored'
+						/>
 					</Container>
 				</QueryClientProvider>
 			</SessionContextProvider>
