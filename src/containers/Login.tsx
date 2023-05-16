@@ -1,14 +1,15 @@
 import { toast } from 'react-toastify';
-import { LoginForm } from '../components/Auth';
+import { LoginForm } from '../components/LoginForm';
 import useGetUserProfile from '../api/useGetAuthors';
 import { useState } from 'react';
 import { supabase } from '../App';
 import { LoginProps } from '../../types/types';
-import { Navigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 export default function Login() {
 	const [loading, setLoading] = useState(false);
 	const getUser = useGetUserProfile();
+	const navigate = useNavigate();
 
 	const handleSuccessfulLogin = async () => {
 		const { data } = getUser;
@@ -23,9 +24,9 @@ export default function Login() {
 			draggable: true,
 			progress: undefined,
 			theme: 'colored',
-        });
-        
-        return <Navigate to='/home' replace />;
+		});
+		console.log('heellooooo');
+		navigate('/');
 	};
 
 	const handleFailedLogin = async (error: string) => {

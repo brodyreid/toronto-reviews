@@ -73,7 +73,7 @@ export default function App() {
 							<Route path='*' element={<h1>404 Not Found</h1>} />
 						</Routes>
 						<ToastContainer
-							position='top-right'
+							position='bottom-right'
 							autoClose={5000}
 							hideProgressBar={false}
 							newestOnTop={false}
