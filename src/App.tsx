@@ -6,10 +6,10 @@ import About from './containers/About';
 import Reviews from './containers/Reviews';
 import Contact from './containers/Contact';
 import { Container } from '@mui/material';
-import { Session, createClient } from '@supabase/supabase-js';
+import { createClient } from '@supabase/supabase-js';
 import { Database } from '../types/database.types';
 import { QueryClient, QueryClientProvider } from 'react-query';
-import { Fragment, useState } from 'react';
+import { Fragment } from 'react';
 import { SessionContextProvider } from '@supabase/auth-helpers-react';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -48,9 +48,9 @@ const categories = [
 ];
 
 export default function App() {
-	const [session, setSession] = useState<Session | null>(null);
-	supabase.auth.onAuthStateChange((event, session) => {
-		setSession(session);
+	let session = null;
+	supabase.auth.onAuthStateChange((_event, currentSession) => {
+		session = currentSession;
 	});
 	
 	return (
@@ -64,9 +64,6 @@ export default function App() {
 							title='Toronto Reviews'
 							categories={categories}
 						/>
-						{/* {!!!session && (
-							<Auth supabaseClient={supabase} providers={[]} /> // bin this and make custom sign-in
-						)} */}
 						<Routes>
 							<Route path='/' element={<Home />} />
 							<Route path='about' element={<About />} />

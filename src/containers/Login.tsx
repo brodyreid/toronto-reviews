@@ -4,6 +4,7 @@ import useGetUserProfile from '../api/useGetAuthors';
 import { useState } from 'react';
 import { supabase } from '../App';
 import { LoginProps } from '../../types/types';
+import { Navigate } from 'react-router-dom';
 
 export default function Login() {
 	const [loading, setLoading] = useState(false);
@@ -22,7 +23,9 @@ export default function Login() {
 			draggable: true,
 			progress: undefined,
 			theme: 'colored',
-		});
+        });
+        
+        return <Navigate to='/home' replace />;
 	};
 
 	const handleFailedLogin = async (error: string) => {
@@ -39,17 +42,19 @@ export default function Login() {
 	};
 
 	const handleSubmit = async ({ email, password }: LoginProps) => {
-		setLoading(true);
+        setLoading(true);
+        
 		const { error } = await supabase.auth.signInWithPassword({
 			email,
 			password,
-		});
-
+        });
+        
 		if (error) {
 			await handleFailedLogin(error.message);
 		} else {
 			await handleSuccessfulLogin();
-		}
+        }
+        
 		setLoading(false);
 	};
 

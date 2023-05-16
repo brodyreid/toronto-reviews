@@ -4,7 +4,7 @@ import useGetAuthors from '../api/useGetAuthors';
 
 const About = () => {
 	const { data: authors, isLoading, isSuccess } = useGetAuthors();
-	console.log(authors);
+	
 	return (
 		<>
 			<Typography variant='h3'>Hello this is the About page</Typography>

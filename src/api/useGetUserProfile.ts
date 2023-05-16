@@ -5,10 +5,8 @@ import { supabase } from "../App";
 export const getUserProfile = async () => {
 	const { data, error } = await supabase
 		.from('profile')
-		.select(
-			'username, created_at, avatar_url, bio',
-		)
-		.returns<Profile>();
+		.select('username, created_at, avatar_url, bio')
+		.single<Profile>();
 
 	if (error) {
 		throw new Error(error.message);
