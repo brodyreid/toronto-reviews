@@ -1,4 +1,4 @@
-import { Box, Button, Toolbar, Typography } from '@mui/material';
+import { Box, Toolbar, Typography } from '@mui/material';
 import NavBar from '../components/NavBar';
 import { Category } from '../../types/types';
 import { useSession } from '@supabase/auth-helpers-react';
@@ -7,6 +7,7 @@ import { supabase } from '../App';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import AccountMenu from '../components/AccountMenu';
+import LoginButton from '../components/LoginButton';
 
 interface HeaderProps {
 	title: string;
@@ -38,13 +39,17 @@ const Header = ({ title, categories }: HeaderProps) => {
 					{title}
 				</Typography>
 				{!session ? (
-					<Button href='/login'>Login</Button>
+					<LoginButton />
 				) : (
-					
-						<Box sx={{display: 'flex'}}>
-							<Typography variant='h6' color='inherit' sx={{alignSelf: 'center'}}>Hi, {username}</Typography>
-							<AccountMenu avatarUrl={avatarUrl} />
-						</Box>
+					<Box sx={{ display: 'flex' }}>
+						<Typography
+							variant='h6'
+							color='inherit'
+							sx={{ alignSelf: 'center' }}>
+							Hi, {username}
+						</Typography>
+						<AccountMenu avatarUrl={avatarUrl} handleLogout={handleLogout} />
+					</Box>
 				)}
 			</Toolbar>
 			<NavBar categories={categories} />

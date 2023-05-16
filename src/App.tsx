@@ -13,7 +13,6 @@ import { Fragment } from 'react';
 import { SessionContextProvider } from '@supabase/auth-helpers-react';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import Login from './containers/Login';
 
 const SUPABASE_URL = 'https://ahihbpdewjvyhhbglaym.supabase.co';
 const SUPABASE_ANON_KEY =
@@ -69,7 +68,6 @@ export default function App() {
 							<Route path='about' element={<About />} />
 							<Route path='reviews' element={<Reviews />} />
 							<Route path='contact' element={<Contact />} />
-							<Route path='login' element={<Login />} />
 							<Route path='*' element={<h1>404 Not Found</h1>} />
 						</Routes>
 						<ToastContainer

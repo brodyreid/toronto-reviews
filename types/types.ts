@@ -5,7 +5,7 @@ export type Review = Database['public']['Tables']['reviews']['Row'];
 export type Profile = Omit<
 	Database['public']['Tables']['profile']['Row'],
 	'user_id' | 'full_name'
-	> & { reviews?: { count: number }[]; reviewsCount?: number; hashedId?: number };
+> & { reviews?: { count: number }[]; reviewsCount?: number; hashedId?: number };
 export type ReviewWithProfile = Review & { profile: Profile };
 
 export interface Category {
@@ -13,7 +13,12 @@ export interface Category {
 	slug: string;
 }
 
-export interface LoginProps {
+export interface LoginFields {
 	email: string;
 	password: string;
+}
+
+export interface LoginFormProps {
+	onSubmit: (values: LoginFields) => void;
+	loading: boolean;
 }

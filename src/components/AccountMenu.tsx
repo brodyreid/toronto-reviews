@@ -8,7 +8,7 @@ import Logout from '@mui/icons-material/Logout';
 import { useState } from 'react';
 import AvatarStyled from '../styles/AvatarStyled';
 
-export default function AccountMenu({ avatarUrl }: { avatarUrl: string }) {
+export default function AccountMenu({ avatarUrl, handleLogout }: { avatarUrl: string; handleLogout: () => void }) {
 	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 	const open = Boolean(anchorEl);
 	const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -72,7 +72,10 @@ export default function AccountMenu({ avatarUrl }: { avatarUrl: string }) {
 					</ListItemIcon>
 					Settings
 				</MenuItem>
-				<MenuItem onClick={handleClose}>
+				<MenuItem onClick={() => {
+					handleClose();
+					handleLogout();
+				}}>
 					<ListItemIcon>
 						<Logout fontSize='small' />
 					</ListItemIcon>
