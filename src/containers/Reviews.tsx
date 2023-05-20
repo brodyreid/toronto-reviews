@@ -2,37 +2,21 @@ import { Button, MenuItem, TextField, Typography } from '@mui/material';
 import { Form, Formik } from 'formik';
 import useGetReviews from '../api/useGetReviews';
 import ReviewCard from '../components/ReviewCard';
-import useIsAdmin from '../utils/useIsUserAdmin';
+import useIsAdmin from '../api/useIsUserAdmin';
 import createReview from '../api/createReview';
 import { useUser } from '@supabase/auth-helpers-react';
 import { ReviewInsert } from '../../types/types';
+import { ratings } from '../utils/ratingsUtils';
+import ReviewsList from '../components/ReviewsList';
 
 export default function Reviews() {
 	const user = useUser();
 	const isAdmin = useIsAdmin();
-	const { data: reviews, isLoading, isSuccess, refetch } = useGetReviews();
-	const ratings = [
-		{
-			value: 1,
-			label: '1',
-		},
-		{
-			value: 2,
-			label: '2',
-		},
-		{
-			value: 3,
-			label: '3',
-		},
-		{
-			value: 4,
-			label: '4',
-		},
-		{
-			value: 5,
-			label: '5',
-		},
-	];
+	const { data, isLoading, isSuccess, refetch } = useGetReviews();
+	const reviews = !data ? [] : data.map((review) => {
+		const isUserTheAuthor = !!review?.author_id && review.author_id === user?.id;
+		return { ...review, isUserTheAuthor};
+	});
 
 	const handleCreateReview = async (values: ReviewInsert) => {
 		await createReview({
@@ -90,17 +74,19 @@ export default function Reviews() {
 							<Button type='submit'>Submit</Button>
 						</Form>
 					)}
-			</Formik>
+				</Formik>
 			)}
 			{isLoading ? (
 				<Typography>Loading...</Typography>
 			) : (
 				<>
-					{isSuccess &&
-						Boolean(reviews.length) &&
-						reviews.map((review) => (
-							<ReviewCard key={review.id} {...review} />
-						))}
+						{isSuccess &&
+							<ReviewsList items={reviews} renderItem={ReviewCard} />
+						// Boolean(reviews.length) &&
+						// reviews.map((review) => (
+						// 	<ReviewCard key={review.id} {...review} />
+						// ))
+						}
 				</>
 			)}
 		</>

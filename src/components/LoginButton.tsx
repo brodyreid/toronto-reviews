@@ -31,29 +31,12 @@ export default function LoginButton() {
 		const { data: user } = getUser;
 		const username = user?.username ?? '';
 
-		toast.success(`Welcome back, ${username}`, {
-			position: 'top-right',
-			autoClose: 5000,
-			hideProgressBar: false,
-			closeOnClick: true,
-			pauseOnHover: true,
-			draggable: true,
-			progress: undefined,
-			theme: 'colored',
-		});
+		toast.success(`Welcome back, ${username}`);
+		setOpen(false);
 		navigate('/');
 	};
 	const handleFailedLogin = async (error: string) => {
-		toast.error(error, {
-			position: 'top-right',
-			autoClose: 5000,
-			hideProgressBar: false,
-			closeOnClick: true,
-			pauseOnHover: true,
-			draggable: true,
-			progress: undefined,
-			theme: 'colored',
-		});
+		toast.error(error);
 	};
 	const handleSubmit = async ({ email, password }: LoginFields) => {
 		setLoading(true);
@@ -67,7 +50,6 @@ export default function LoginButton() {
 			await handleSuccessfulLogin();
 		}
 		setLoading(false);
-		setOpen(false);
 	};
 
 	const LoginForm = () => {
@@ -93,7 +75,14 @@ export default function LoginButton() {
 					}}
 					onSubmit={(values) => handleSubmit(values)}>
 					{({ values, handleChange, handleBlur }) => (
-						<Form style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12, padding: 12 }}>
+						<Form
+							style={{
+								display: 'flex',
+								flexDirection: 'column',
+								alignItems: 'center',
+								gap: 12,
+								padding: 12,
+							}}>
 							<TextField
 								disabled={loading}
 								type='email'
@@ -112,7 +101,11 @@ export default function LoginButton() {
 								onChange={handleChange}
 								onBlur={handleBlur}
 							/>
-							<Button variant='contained' sx={{ maxWidth: 24 }} disabled={loading} type='submit'>
+							<Button
+								variant='contained'
+								sx={{ maxWidth: 24 }}
+								disabled={loading}
+								type='submit'>
 								Login
 							</Button>
 						</Form>

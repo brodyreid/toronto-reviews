@@ -5,7 +5,7 @@ import { hasher } from '../utils/HashUtils';
 
 export const getAuthors = async () => {
 	const { data, error } = await supabase
-		.from('profile')
+		.from('profiles')
 		.select('username, created_at, avatar_url, bio, reviews(count)')
 		.returns<Profile[]>();
 

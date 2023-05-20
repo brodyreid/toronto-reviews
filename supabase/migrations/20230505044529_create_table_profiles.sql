@@ -15,25 +15,26 @@ CREATE TRIGGER on_auth_user_created AFTER INSERT ON auth.users FOR EACH ROW EXEC
 
 
 create table "public"."profiles" (
-    "id" uuid not null,
-    "updated_at" timestamp with time zone default now(),
+    "user_id" uuid not null,
+    "created_at" timestamp with time zone default now(),
     "username" text not null default ''::text,
     "full_name" text not null default ''::text,
-    "avatar_url" text not null default ''::text
+    "avatar_url" text not null default ''::text,
+    "bio" text not null default ''::text
 );
 
 
 alter table "public"."profiles" enable row level security;
 
-CREATE UNIQUE INDEX profiles_pkey ON public.profiles USING btree (id);
+CREATE UNIQUE INDEX profiles_pkey ON public.profiles USING btree (user_id);
 
 CREATE UNIQUE INDEX profiles_username_key ON public.profiles USING btree (username);
 
 alter table "public"."profiles" add constraint "profiles_pkey" PRIMARY KEY using index "profiles_pkey";
 
-alter table "public"."profiles" add constraint "profiles_id_fkey" FOREIGN KEY (id) REFERENCES auth.users(id) ON DELETE CASCADE not valid;
+alter table "public"."profiles" add constraint "profiles_user_id_fkey" FOREIGN KEY (user_id) REFERENCES auth.users(id) ON DELETE CASCADE not valid;
 
-alter table "public"."profiles" validate constraint "profiles_id_fkey";
+alter table "public"."profiles" validate constraint "profiles_user_id_fkey";
 
 alter table "public"."profiles" add constraint "profiles_username_key" UNIQUE using index "profiles_username_key";
 
@@ -57,7 +58,7 @@ on "public"."profiles"
 as permissive
 for insert
 to public
-with check ((auth.uid() = id));
+with check ((auth.uid() = user_id));
 
 
 create policy "Users can update own profile."
@@ -65,7 +66,7 @@ on "public"."profiles"
 as permissive
 for update
 to public
-using ((auth.uid() = id));
+using ((auth.uid() = user_id));
 
 
 

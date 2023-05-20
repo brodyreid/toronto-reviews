@@ -5,11 +5,20 @@ import StarIcon from '@mui/icons-material/Star';
 import { ReviewWithProfile } from '../../types/types';
 import AvatarStyled from '../styles/AvatarStyled';
 
-export default function ReviewCard(props: ReviewWithProfile) {
-	const { body, created_at, profile, rating, restaurant } = props;
+export default function ReviewCard(item: ReviewWithProfile ) {
+	const {
+			body,
+			created_at,
+			profile,
+			rating,
+			restaurant,
+			isUserTheAuthor,
+			id
+
+	} = item;
 
 	return (
-		<Card raised sx={{ marginTop: '20px', padding: '20px' }}>
+		<Card key={id} raised sx={{ marginTop: '20px', padding: '20px' }}>
 			<CardContent>
 				<Box
 					sx={{
@@ -26,7 +35,7 @@ export default function ReviewCard(props: ReviewWithProfile) {
 						alignItems: 'center',
 						gap: '10px',
 					}}>
-					<Typography>{profile.username}</Typography>
+					{isUserTheAuthor ? <Typography>Me</Typography> : <Typography>{profile.username}</Typography>}
 					<AvatarStyled avatarUrl={profile.avatar_url} />
 					<div>{new Date(created_at).toDateString()}</div>
 				</Box>
