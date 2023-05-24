@@ -6,7 +6,7 @@ import {
 	Container,
 	Typography,
 } from '@mui/material';
-import { Profile } from '../../types/types';
+import { Author } from '../../types/types';
 
 const AboutCard = ({
 	avatar_url,
@@ -14,7 +14,7 @@ const AboutCard = ({
 	reviewsCount,
 	created_at,
 	bio,
-}: Profile) => {
+}: Author) => {
 	return (
 		<Card raised sx={{ marginTop: '20px', padding: '20px' }}>
 			<CardContent>
@@ -36,13 +36,15 @@ const AboutCard = ({
 						alignItems: 'center',
 						gap: '10px',
 					}}>
-					<Typography>
-						Joined on {new Date(created_at).toDateString()}
-					</Typography>
-					{<Typography>Reviews: {reviewsCount}</Typography>}
+					{!!created_at && (
+						<Typography>
+							Joined on {new Date(created_at).toDateString()}
+						</Typography>
+					)}
+					<Typography>Reviews: {reviewsCount}</Typography>
 				</Box>
 				<Container sx={{ margin: '10px' }}>
-					{Boolean(bio) && <Typography>{bio}</Typography>}
+					<Typography>{bio}</Typography>
 				</Container>
 			</CardContent>
 		</Card>

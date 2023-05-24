@@ -1,13 +1,13 @@
 import { useQuery } from 'react-query';
 import { supabase } from '../App';
-import { Profile } from '../../types/types';
+import { Author, GetAuthorsReturnType} from '../../types/types';
 import { hasher } from '../utils/HashUtils';
 
 export const getAuthors = async () => {
 	const { data, error } = await supabase
 		.from('profiles')
 		.select('username, created_at, avatar_url, bio, reviews(count)')
-		.returns<Profile[]>();
+		.returns<GetAuthorsReturnType[]>();
 
 	if (error) {
 		throw new Error(error.message);
@@ -20,7 +20,7 @@ export const getAuthors = async () => {
 		reviewsCount: reviews?.[0].count ?? 0,
 		username,
 		hashedId: hasher(username)
-	}));
+	})) as Author[];
 };
 
 export default function useGetAuthors() {

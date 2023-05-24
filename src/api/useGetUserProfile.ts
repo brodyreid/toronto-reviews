@@ -4,7 +4,7 @@ import { supabase } from "../App";
 
 export const getUserProfile = async () => {
 	const { data, error } = await supabase
-		.from('profile')
+		.from('profiles')
 		.select('username, created_at, avatar_url, bio')
 		.single<Profile>();
 

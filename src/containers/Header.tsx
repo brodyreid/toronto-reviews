@@ -17,9 +17,15 @@ interface HeaderProps {
 const Header = ({ title, categories }: HeaderProps) => {
 	const session = useSession();
 	const navigate = useNavigate();
-	const { data: user } = useGetUserProfile();
-	const avatarUrl = user?.avatar_url ?? '';
-	const username = user?.username ?? '';
+	const getUserProfile = useGetUserProfile();
+	let avatarUrl = '';
+	let username = '';
+
+	if (!!session) {
+		const { data: user } = getUserProfile;
+		avatarUrl = user?.avatar_url ?? '';
+		username = user?.username ?? '';
+	}
 
 	const handleLogout = async () => {
 		await supabase.auth.signOut();
