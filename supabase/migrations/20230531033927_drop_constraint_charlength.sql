@@ -1,0 +1,1 @@
+alter table public.profiles drop constraint username_length;
