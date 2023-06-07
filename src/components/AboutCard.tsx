@@ -27,7 +27,7 @@ const AboutCard = ({
 					<Typography variant='h4'>{username}</Typography>
 					<Avatar
 						style={{ objectFit: 'cover', height: 50, width: 50 }}
-						src={avatar_url}
+						src={avatar_url ?? ''}
 					/>
 				</Box>
 				<Box

@@ -6,7 +6,7 @@ export const getReviews = async () => {
 	const { data, error } = await supabase
 		.from('reviews')
 		.select('*, profiles(*)')
-		.returns<GetReviewsReturnType[]>();
+		// .returns<GetReviewsReturnType[]>();
 
 	if (error) {
 		throw new Error(error.message);

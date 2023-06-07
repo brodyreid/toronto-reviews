@@ -46,7 +46,8 @@
 		"eject": "react-scripts eject",
 		"deploy": "aws s3 sync build/ s3://torontoreviews.ca",
 		"types": "supabase gen types typescript --local > types/database.types.ts",
-		"migrate": "supabase db diff -f"
+		"migrate": "supabase db diff -f",
+		"dump": "pg_dump '' > seed.sql"
 	},
 	"eslintConfig": {
 		"extends": [

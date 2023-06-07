@@ -36,7 +36,7 @@ export default function ReviewCard(item: ReviewWithProfile ) {
 						gap: '10px',
 					}}>
 					{isUserTheAuthor ? <Typography>Me</Typography> : <Typography>{profile.username}</Typography>}
-					<AvatarStyled avatarUrl={profile.avatar_url} />
+					<AvatarStyled avatarUrl={profile?.avatar_url ?? ''} />
 					<div>{new Date(created_at).toDateString()}</div>
 				</Box>
 				<Container sx={{ margin: '10px' }}>

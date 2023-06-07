@@ -82,10 +82,6 @@ export default function Reviews() {
 				<>
 						{isSuccess &&
 							<ReviewsList items={reviews} renderItem={ReviewCard} />
-						// Boolean(reviews.length) &&
-						// reviews.map((review) => (
-						// 	<ReviewCard key={review.id} {...review} />
-						// ))
 						}
 				</>
 			)}

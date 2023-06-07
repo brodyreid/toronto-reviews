@@ -36,29 +36,37 @@ export interface Database {
     Tables: {
       profiles: {
         Row: {
-          avatar_url: string
-          bio: string
+          avatar_url: string | null
+          bio: string | null
           created_at: string | null
-          full_name: string
+          full_name: string | null
           user_id: string
-          username: string
+          username: string | null
         }
         Insert: {
-          avatar_url?: string
-          bio?: string
+          avatar_url?: string | null
+          bio?: string | null
           created_at?: string | null
-          full_name?: string
+          full_name?: string | null
           user_id: string
-          username?: string
+          username?: string | null
         }
         Update: {
-          avatar_url?: string
-          bio?: string
+          avatar_url?: string | null
+          bio?: string | null
           created_at?: string | null
-          full_name?: string
+          full_name?: string | null
           user_id?: string
-          username?: string
+          username?: string | null
         }
+        Relationships: [
+          {
+            foreignKeyName: "profiles_user_id_fkey"
+            columns: ["user_id"]
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          }
+        ]
       }
       reviews: {
         Row: {
@@ -85,6 +93,14 @@ export interface Database {
           rating?: number
           restaurant?: string
         }
+        Relationships: [
+          {
+            foreignKeyName: "reviews_author_id_fkey"
+            columns: ["author_id"]
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          }
+        ]
       }
       user_roles: {
         Row: {
@@ -99,6 +115,14 @@ export interface Database {
           role?: Database["public"]["Enums"]["user_role"]
           user_id?: string
         }
+        Relationships: [
+          {
+            foreignKeyName: "fk_user_id"
+            columns: ["user_id"]
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          }
+        ]
       }
     }
     Views: {
@@ -155,6 +179,14 @@ export interface Database {
           public?: boolean | null
           updated_at?: string | null
         }
+        Relationships: [
+          {
+            foreignKeyName: "buckets_owner_fkey"
+            columns: ["owner"]
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          }
+        ]
       }
       migrations: {
         Row: {
@@ -175,6 +207,7 @@ export interface Database {
           id?: number
           name?: string
         }
+        Relationships: []
       }
       objects: {
         Row: {
@@ -213,6 +246,20 @@ export interface Database {
           updated_at?: string | null
           version?: string | null
         }
+        Relationships: [
+          {
+            foreignKeyName: "objects_bucketId_fkey"
+            columns: ["bucket_id"]
+            referencedRelation: "buckets"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "objects_owner_fkey"
+            columns: ["owner"]
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          }
+        ]
       }
     }
     Views: {
@@ -244,7 +291,7 @@ export interface Database {
         Args: {
           name: string
         }
-        Returns: string[]
+        Returns: unknown
       }
       get_size_by_bucket: {
         Args: Record<PropertyKey, never>
