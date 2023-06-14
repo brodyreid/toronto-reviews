@@ -36,7 +36,7 @@ export interface Database {
     Tables: {
       profiles: {
         Row: {
-          avatar_url: string | null
+          avatar_url: string
           bio: string | null
           created_at: string | null
           full_name: string | null
@@ -44,7 +44,7 @@ export interface Database {
           username: string | null
         }
         Insert: {
-          avatar_url?: string | null
+          avatar_url?: string
           bio?: string | null
           created_at?: string | null
           full_name?: string | null
@@ -52,7 +52,7 @@ export interface Database {
           username?: string | null
         }
         Update: {
-          avatar_url?: string | null
+          avatar_url?: string
           bio?: string | null
           created_at?: string | null
           full_name?: string | null

@@ -4,7 +4,8 @@ import useGetAuthors from '../api/useGetAuthors';
 
 const About = () => {
 	const { data: authors, isLoading, isSuccess } = useGetAuthors();
-	
+	const cleanAuthors = (!!authors && authors.length) ? authors.filter((author) => author.username && author.reviewsCount > 0) : [];
+
 	return (
 		<>
 			<Typography variant='h3'>Hello this is the About page</Typography>
@@ -12,8 +13,7 @@ const About = () => {
 				<Typography>Loading...</Typography>
 			) : (
 				isSuccess &&
-				Boolean(authors.length) &&
-				authors.map((author) => (
+				cleanAuthors.map((author) => (
 					<AboutCard key={author.user_id} {...author} />
 				))
 			)}

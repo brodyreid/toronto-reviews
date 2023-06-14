@@ -18,14 +18,7 @@ const Header = ({ title, categories }: HeaderProps) => {
 	const session = useSession();
 	const navigate = useNavigate();
 	const getUserProfile = useGetUserProfile();
-	let avatarUrl = '';
-	let username = '';
-
-	if (!!session) {
-		const { data: user } = getUserProfile;
-		avatarUrl = user?.avatar_url ?? '';
-		username = user?.username ?? '';
-	}
+	const { data: user } = getUserProfile;
 
 	const handleLogout = async () => {
 		await supabase.auth.signOut();
@@ -44,7 +37,7 @@ const Header = ({ title, categories }: HeaderProps) => {
 				<Typography variant='h3' color='inherit'>
 					{title}
 				</Typography>
-				{!session ? (
+				{!session || !user ? (
 					<LoginButton />
 				) : (
 					<Box sx={{ display: 'flex' }}>
@@ -52,9 +45,9 @@ const Header = ({ title, categories }: HeaderProps) => {
 							variant='h6'
 							color='inherit'
 							sx={{ alignSelf: 'center' }}>
-							Hi, {username}
+							Hi, {user?.username ?? 'Anonymous'}
 						</Typography>
-						<AccountMenu avatarUrl={avatarUrl} handleLogout={handleLogout} />
+						<AccountMenu avatarUrl={user?.avatar_url} handleLogout={handleLogout} />
 					</Box>
 				)}
 			</Toolbar>

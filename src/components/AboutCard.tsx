@@ -24,7 +24,7 @@ const AboutCard = ({
 						alignItems: 'center',
 						gap: '20px',
 					}}>
-					<Typography variant='h4'>{username}</Typography>
+					<Typography variant='h4'>{username ?? 'Anonymous Reviewver'}</Typography>
 					<Avatar
 						style={{ objectFit: 'cover', height: 50, width: 50 }}
 						src={avatar_url ?? ''}
