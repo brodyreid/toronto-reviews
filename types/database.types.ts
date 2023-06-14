@@ -97,8 +97,8 @@ export interface Database {
           {
             foreignKeyName: "reviews_author_id_fkey"
             columns: ["author_id"]
-            referencedRelation: "users"
-            referencedColumns: ["id"]
+            referencedRelation: "profiles"
+            referencedColumns: ["user_id"]
           }
         ]
       }

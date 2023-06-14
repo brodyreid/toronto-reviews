@@ -3,15 +3,23 @@
     {
       "name": "project-root",
       "path": "./"
-    },
-    {
-      "name": "supabase-functions",
-      "path": "supabase/functions"
     }
   ],
   "settings": {
     "files.exclude": {
       "supabase/functions/": true
-    }
+    },
+    "sqltools.connections": [
+      {
+        "previewLimit": 50,
+        "server": "localhost",
+        "port": 54322,
+        "askForPassword": true,
+        "driver": "PostgreSQL",
+        "name": "toronto-reviews",
+        "database": "postgres",
+        "username": "postgres"
+      }
+    ]
   }
 }

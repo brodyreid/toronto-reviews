@@ -14,7 +14,7 @@ const About = () => {
 				isSuccess &&
 				Boolean(authors.length) &&
 				authors.map((author) => (
-					<AboutCard key={author.hashedId} {...author} />
+					<AboutCard key={author.user_id} {...author} />
 				))
 			)}
 		</>
