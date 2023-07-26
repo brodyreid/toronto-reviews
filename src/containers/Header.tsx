@@ -25,6 +25,7 @@ const Header = ({ title, categories }: HeaderProps) => {
 		toast.info('You have been logged out');
 		navigate('/');
 	};
+	console.log(user, session)
 
 	return (
 		<>
@@ -37,7 +38,7 @@ const Header = ({ title, categories }: HeaderProps) => {
 				<Typography variant='h3' color='inherit'>
 					{title}
 				</Typography>
-				{!session || !user ? (
+				{!session ? (
 					<LoginButton />
 				) : (
 					<Box sx={{ display: 'flex' }}>
@@ -47,7 +48,7 @@ const Header = ({ title, categories }: HeaderProps) => {
 							sx={{ alignSelf: 'center' }}>
 							Hi, {user?.username ?? 'Anonymous'}
 						</Typography>
-						<AccountMenu avatarUrl={user?.avatar_url} handleLogout={handleLogout} />
+						<AccountMenu avatarUrl={user?.avatar_url ?? ''} handleLogout={handleLogout} />
 					</Box>
 				)}
 			</Toolbar>

@@ -18,6 +18,9 @@ export default function Reviews() {
 		return { ...review, isUserTheAuthor};
 	});
 
+	console.log(reviews);
+	console.log(isAdmin)
+
 	const handleCreateReview = async (values: ReviewInsert) => {
 		await createReview({
 			...values,

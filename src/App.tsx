@@ -14,6 +14,7 @@ import { SessionContextProvider } from '@supabase/auth-helpers-react';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+export const DEFAULT_AVATAR_URL = 'https://ahihbpdewjvyhhbglaym.supabase.co/storage/v1/object/sign/avatars/diet_coke.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJhdmF0YXJzL2RpZXRfY29rZS5qcGciLCJpYXQiOjE2OTA0MTIxNDEsImV4cCI6MTcyMTk0ODE0MX0.jo3-xYgDVcOV4A_lMey0YukNIOSG81yN6GSyHgLd33Q&t=2023-07-26T22%3A55%3A42.393Z';
 const SUPABASE_URL = process.env.NODE_ENV === 'production' ? 'https://ahihbpdewjvyhhbglaym.supabase.co' : 'http://localhost:54321';
 const SUPABASE_ANON_KEY =
 	process.env.NODE_ENV === 'production'

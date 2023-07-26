@@ -1,1 +1,0 @@
-alter table public.profiles alter column avatar_url set not null;

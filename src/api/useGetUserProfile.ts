@@ -1,18 +1,29 @@
-import { useQuery } from "react-query";
-import { Profile } from "../../types/types";
-import { supabase } from "../App";
+import { useQuery } from 'react-query';
+import { GetUserProfileReturnType, Profile } from '../../types/types';
+import { DEFAULT_AVATAR_URL, supabase } from '../App';
 
 export const getUserProfile = async () => {
+	const {
+		data: { user },
+	} = await supabase.auth.getUser();
 	const { data, error } = await supabase
 		.from('profiles')
-		.select('username, created_at, avatar_url, bio')
-		.single<Profile>();
+		.select('*')
+		.eq('user_id', user?.id)
+		.single<GetUserProfileReturnType>();
 
 	if (error) {
 		throw new Error(error.message);
 	}
 
-    return data;
+	if (!Boolean(data?.avatar_url)) {
+		return data as Profile;
+	} else {
+		return {
+			...data,
+			avatar_url: DEFAULT_AVATAR_URL,
+		} as Profile;
+	}
 };
 
 export default function useGetUserProfile() {

@@ -11,18 +11,20 @@ export type GetAuthorsReturnType = Omit<
 > & {
 	reviews: { count: number }[];
 };
+export type GetUserProfileReturnType =
+	Database['public']['Tables']['profiles']['Row'];
 
 // Common
 export type ReviewInsert = Database['public']['Tables']['reviews']['Insert'];
 export type Review = Database['public']['Tables']['reviews']['Row'];
 export type Profile = Omit<
 	Database['public']['Tables']['profiles']['Row'],
-	'full_name'
->;
+	'avatar_url'
+> & { avatar_url: string };
 export type ReviewWithProfile = Review & { profile: Profile } & {
 	isUserTheAuthor?: boolean;
 };
-export type Author = Profile & { reviewsCount: number; };
+export type Author = Profile & { reviewsCount: number };
 
 // Interfaces for Components
 export interface Category {

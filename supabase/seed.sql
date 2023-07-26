@@ -35,10 +35,6 @@ VALUES (
         false,
         NULL
     );
---
--- Data for Name: identities; Type: TABLE DATA; Schema: auth; Owner: supabase_auth_admin
---
-
 INSERT INTO auth.identities
 VALUES (
         '45c61ce0-6971-4bb9-884a-cdf6f8439716',
@@ -49,4 +45,24 @@ VALUES (
         '2023-05-02 04:08:19.702854+00',
         '2023-05-02 04:08:19.702854+00',
         DEFAULT
+    );
+INSERT INTO public.user_roles
+VALUES ('45c61ce0-6971-4bb9-884a-cdf6f8439716', 'admin');
+-- INSERT INTO public.profiles
+-- VALUES (
+--         '45c61ce0-6971-4bb9-884a-cdf6f8439716',
+--         '2023-06-14 02:23:05.911807+00',
+--         'eggleg',
+--         null,
+--         'https://ahihbpdewjvyhhbglaym.supabase.co/storage/v1/object/sign/avatars/egg.jpeg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJhdmF0YXJzL2VnZy5qcGVnIiwiaWF0IjoxNjg2NzEzMjA5LCJleHAiOjE3MTgyNDkyMDl9.hsDeXneG8ZpCC-0gqfTr2MsLcRSkaZfcMBAQlziVG1o&t=2023-06-14T03%3A26%3A49.514Z',
+--         null
+--     );
+INSERT INTO public.reviews
+VALUES (
+        3,
+        '2023-06-14 03:01:24.933403+00',
+        '45c61ce0-6971-4bb9-884a-cdf6f8439716',
+        'egg store',
+        'horrible diet code i cry',
+        1
     );
